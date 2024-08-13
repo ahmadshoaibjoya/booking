@@ -9,8 +9,18 @@ from booking.booking import Booking
 
 
 with Booking() as bot:
+    
     bot.land_first_page()
-    bot.change_currancy(currency="USD")
+    
+    bot.manage_cookie()
+    
+    bot.dismiss_signin()
+    
+    bot.change_currancy(currency="EUR")
+    
+    bot.select_a_place("Berlin")
+    
+    bot.select_dates(checkin_date="2024-08-17", checkout_date="2024-08-22")
 
 
 

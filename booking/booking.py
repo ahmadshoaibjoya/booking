@@ -29,7 +29,7 @@ class Booking(webdriver.Chrome):
         self.maximize_window()
         
         
-        
+        # This __exit__() is in the concept of "Context Manager" in Python, it close the file after finishing the process.
     def __exit__(self, exc_type, exc, traceback):
         
         if self.teardown:
@@ -41,6 +41,26 @@ class Booking(webdriver.Chrome):
         
         self.get(const.BASE_URL)
  
+    
+ 
+    def manage_cookie(self):
+        
+        try:
+            cookie=self.find_element(By.ID,"onetrust-accept-btn-handler")
+            cookie.click()           
+        except:
+            print("Cookies buttons not exist!")          
+        
+        
+    def dismiss_signin(self):
+        
+        try:            
+            dismiss=self.find_element(By.CSS_SELECTOR,"Button[aria-label='Dismiss sign-in info.']")
+            dismiss.click()
+        except:
+            print("Dismiss signin Button not exist!")
+        
+        
     
     def change_currancy(self, currency="EUR"):
         
@@ -65,8 +85,22 @@ class Booking(webdriver.Chrome):
                 select_currency_element.click()
                 
      
+    
+    def select_a_place(self, place):
+        
+        place_element=self.find_element(By.ID,":r8:")
+        place_element.clear()
+        place_element.send_keys(place)
+        
+        select_place=self.find_element(By.ID, "autocomplete-result-0")
+        select_place.click()
        
-
+    
+    def select_dates(self, checkin_date, checkout_date):
+        checkin=self.find_element(By.CSS_SELECTOR,f"span[data-date='{checkin_date}']")
+        checkin.click()
+        checkout=self.find_element(By.CSS_SELECTOR,f"span[data-date='{checkout_date}']")
+        checkout.click()
         
         
         
