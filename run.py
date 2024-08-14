@@ -20,8 +20,11 @@ with Booking() as bot:
     
     bot.select_a_place("Berlin")
     
-    bot.select_dates(checkin_date="2024-08-17", checkout_date="2024-08-22")
-
+    bot.select_dates(checkin_date="2024-08-18", checkout_date="2024-09-01")
+    
+    bot.select_adults_children_rooms(adults_count=1)
+    
+    bot.click_search()
 
 
 # inst=Booking()
