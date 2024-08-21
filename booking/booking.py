@@ -13,6 +13,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 import time
 # import os
+from booking.booking_filtration import BookingFiltration
 
 
 class Booking(webdriver.Chrome):
@@ -28,7 +29,7 @@ class Booking(webdriver.Chrome):
         
         # This line will instantiate an instance of webdriver.chrome
         super().__init__()
-        self.implicitly_wait(5)
+        self.implicitly_wait(2)
         self.maximize_window()
         
         
@@ -61,7 +62,7 @@ class Booking(webdriver.Chrome):
             dismiss=self.find_element(By.CSS_SELECTOR,"Button[aria-label='Dismiss sign-in info.']")
             dismiss.click()
         except:
-            print("Dismiss signin Button not exist!")
+            print("Dismiss Button of Signin Dialog box is not exist!")
         
         
     
@@ -94,7 +95,7 @@ class Booking(webdriver.Chrome):
         place_element=self.find_element(By.CSS_SELECTOR,"input[placeholder='Where are you going?']")
         place_element.clear()
         place_element.send_keys(place)
-        
+        time.sleep(1)
         select_place=self.find_element(By.ID, "autocomplete-result-0")
         select_place.click()
        
@@ -175,7 +176,14 @@ class Booking(webdriver.Chrome):
         search_btn.click()
      
     
-            
+    
+    def apply_filtrations(self):
+        # The self(webdriver.Chrome) object is passed as an argument to the class
+        filtration=BookingFiltration(driver=self)
+        # With star_value, we filter the 1 to 5 stars booking.
+        filtration.apply_star_rating(star_value=4)
+        
+    
         
         
         

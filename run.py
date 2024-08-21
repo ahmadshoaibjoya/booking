@@ -18,14 +18,17 @@ with Booking() as bot:
     
     bot.change_currancy(currency="EUR")
     
+    bot.dismiss_signin()
+    
     bot.select_a_place("Berlin")
     
-    bot.select_dates(checkin_date="2024-08-18", checkout_date="2024-09-01")
+    bot.select_dates(checkin_date="2024-08-25", checkout_date="2024-08-30")
     
     bot.select_adults_children_rooms(adults_count=1)
     
     bot.click_search()
+    
+    bot.dismiss_signin()
+    
+    bot.apply_filtrations()
 
-
-# inst=Booking()
-# inst.land_first_page()
