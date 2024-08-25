@@ -12,8 +12,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 import time
-# import os
-from booking.booking_filtration import BookingFiltration
+
+from booking.booking_filter import BookingFiltration
 
 
 class Booking(webdriver.Chrome):
@@ -29,7 +29,7 @@ class Booking(webdriver.Chrome):
         
         # This line will instantiate an instance of webdriver.chrome
         super().__init__()
-        self.implicitly_wait(2)
+        self.implicitly_wait(5)
         self.maximize_window()
         
         
@@ -51,7 +51,8 @@ class Booking(webdriver.Chrome):
         
         try:
             cookie=self.find_element(By.ID,"onetrust-accept-btn-handler")
-            cookie.click()           
+            cookie.click()
+            
         except:
             print("Cookies buttons not exist!")          
         
@@ -180,8 +181,10 @@ class Booking(webdriver.Chrome):
     def apply_filtrations(self):
         # The self(webdriver.Chrome) object is passed as an argument to the class
         filtration=BookingFiltration(driver=self)
-        # With star_value, we filter the 1 to 5 stars booking.
-        filtration.apply_star_rating(star_value=4)
+        # In arguments filtering the 1 to 5 stars booking.
+        filtration.apply_star_rating(2,3)
+        time.sleep(2)
+        filtration.sort_lowest_price()
         
     
         
