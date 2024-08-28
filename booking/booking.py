@@ -13,6 +13,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 import time
 
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
+
+
 from booking.booking_filter import BookingFiltration
 
 
@@ -26,12 +31,25 @@ class Booking(webdriver.Chrome):
     def __init__(self, teardown=False):
         
         self.teardown=teardown
+        chrome_options = Options()
+        
+        # chrome_options.add_argument("--headless")  # Run Chrome in headless mode
+        # chrome_options.add_argument("--disable-gpu")  # Disable GPU acceleration
+        # chrome_options.add_argument("--no-sandbox")  # Add this argument for running in headless mode on Ubuntu
+        # chrome_options.add_argument("--disable-dev-shm-usage")  # Prevent shared memory issues on Ubuntu
+        # chrome_options.add_argument("--window-size=2560x1440")  # Set the window size for headless mode
         
         # This line will instantiate an instance of webdriver.chrome
-        super().__init__()
+        super().__init__(options=chrome_options)
+        # super().__init__(service=Service(ChromeDriverManager().install()), options=chrome_options)
+        
+        
         self.implicitly_wait(5)
         self.maximize_window()
         
+        
+
+
         
         # This __exit__() is in the concept of "Context Manager" in Python, it close the file after finishing the process.
     def __exit__(self, exc_type, exc, traceback):
@@ -44,6 +62,7 @@ class Booking(webdriver.Chrome):
     def land_first_page(self):
         
         self.get(const.BASE_URL)
+        print(self.title)
  
     
  
@@ -179,6 +198,7 @@ class Booking(webdriver.Chrome):
     
     
     def apply_filtrations(self):
+        
         # The self(webdriver.Chrome) object is passed as an argument to the class
         filtration=BookingFiltration(driver=self)
         # In arguments filtering the 1 to 5 stars booking.

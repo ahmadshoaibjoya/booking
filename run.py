@@ -22,7 +22,7 @@ with Booking() as bot:
     
     bot.select_a_place("Berlin")
     
-    bot.select_dates(checkin_date="2024-08-25", checkout_date="2024-08-30")
+    bot.select_dates(checkin_date="2024-08-27", checkout_date="2024-08-30")
     
     bot.select_adults_children_rooms(adults_count=1)
     
@@ -31,4 +31,7 @@ with Booking() as bot:
     bot.dismiss_signin()
     
     bot.apply_filtrations()
+    
+    # input("Press Enter to exit and close the browser...")
+
 
